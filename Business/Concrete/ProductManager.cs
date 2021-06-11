@@ -8,7 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
-using Business.Contants;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using System.ComponentModel.DataAnnotations;
+using Core.CrossCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -20,9 +23,12 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
-
+        //Cross Cutting  Concerns   -  Validation, Cache, Log, Performance, Auth, Transaction
+        //AOP - Aspect Oriented Programming
+        //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
+            //Business Code
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded); 
         }
